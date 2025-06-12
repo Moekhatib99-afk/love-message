@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sweet Messages</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: #1a1a2e;
+            color: #fff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #16213e;
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 32px rgba(30,40,80,0.22);
+            max-width: 90vw;
+            min-width: 320px;
+        }
+        .message {
+            font-size: 1.4rem;
+            min-height: 2.2em;
+            margin-bottom: .7em;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .message.visible {
+            opacity: 1;
+        }
+        .heart {
+            font-size: 2.2rem;
+            color: #e94560;
+            animation: pulse 1.2s infinite;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1);}
+            50% { transform: scale(1.18);}
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="msgContainer">
+        <div id="python" style="color: #aaa; font-family: 'Fira Mono', monospace; font-size: 1.05em; margin-bottom: 2em;">
+            <span style="color:#ffda73;">import</span> <span style="color:#7ee787;">time</span><br><br>
+            <span style="color:#ffda73;"># List of sweet messages</span><br>
+            <span style="color:#7ee787;">messages</span> = [<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#a5d6ff;">"Hey there..."</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#a5d6ff;">"Just wanted to say something important."</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#a5d6ff;">"It's been on my mind all day..."</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#a5d6ff;">"Are you ready?"</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#a5d6ff;">"Here it comes..."</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#a5d6ff;">"I love you ❤️"</span><br>
+            ]<br><br>
+            <span style="color:#ffda73;"># Print each message with a short pause</span><br>
+            <span style="color:#ffda73;">for</span> <span style="color:#7ee787;">message</span> <span style="color:#ffda73;">in</span> <span style="color:#7ee787;">messages</span>:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#7ee787;">print</span>(<span style="color:#7ee787;">message</span>)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#7ee787;">time</span>.sleep(1.5)
+        </div>
+        <div id="messages"></div>
+    </div>
+    <script>
+        const messages = [
+            "Hey there...",
+            "Just wanted to say something important.",
+            "It's been on my mind all day...",
+            "Are you ready?",
+            "Here it comes...",
+            "I love you <span class='heart'>❤️</span>"
+        ];
+        const container = document.getElementById('messages');
+        const pythonSection = document.getElementById('python');
+
+        function showMessage(msg, idx) {
+            const div = document.createElement('div');
+            div.className = 'message';
+            div.innerHTML = msg;
+            container.appendChild(div);
+            // Fade in
+            setTimeout(() => div.classList.add('visible'), 100);
+        }
+
+        // Hide python after 5s, then start showing messages
+        setTimeout(() => {
+            pythonSection.style.display = 'none';
+            let i = 0;
+            function next() {
+                if (i < messages.length) {
+                    showMessage(messages[i], i);
+                    i++;
+                    setTimeout(next, 1500);
+                }
+            }
+            next();
+        }, 5000);
+    </script>
+</body>
+</html>
